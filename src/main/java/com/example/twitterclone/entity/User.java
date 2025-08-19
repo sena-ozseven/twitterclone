@@ -7,6 +7,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -47,8 +48,25 @@ public class User {
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Tweet> tweetList = new ArrayList<>();
+    private List<Tweet> tweets = new ArrayList<>();
 
+    //List/Set yazdıgımızda add ve remove methodlarını da yazmamız gerekiyor:
+    public void addTweet(Tweet tweet) {
+        if (tweet == null) {
+            throw new IllegalArgumentException("Tweet cannot be null");
+        }
+        if(tweet.getUser().equals(this)) {
+            tweets.add(tweet);
+        }
+    }
+
+    public void removeTweet(Tweet tweet) {
+        tweets.remove(tweet);
+    }
+
+    public List<Tweet> getTweets() {
+        return Collections.unmodifiableList(this.tweets);
+    }
 
     @Override            //polymorphism
     public boolean equals(Object obj) {
@@ -67,5 +85,4 @@ public class User {
     public int hashCode() {
         return Objects.hash(id);
     }
-
 }
