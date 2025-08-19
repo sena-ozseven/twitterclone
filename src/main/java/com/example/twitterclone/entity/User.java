@@ -6,15 +6,15 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Table(name = "users", schema = "public")
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-
-//? alternatively -@EqualsAndHashCode(of = "id")- can be used. in that case methods should not be written.
-@Getter
+@Getter   //? alternatively -@EqualsAndHashCode(of = "id")- can be used. in that case methods should not be written.
 @Setter
 @ToString
 public class User {
@@ -46,7 +46,8 @@ public class User {
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Tweet> tweetList = new ArrayList<>();
 
 
     @Override            //polymorphism

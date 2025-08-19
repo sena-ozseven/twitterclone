@@ -31,6 +31,9 @@ public class Tweet {
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
+
+    private User user;
+
     @Override             //polymorphism
     public boolean equals(Object obj) {
         if (obj == this) {
