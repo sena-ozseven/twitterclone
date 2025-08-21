@@ -9,5 +9,8 @@ public record UserResponseDto(
         Long id,
         String username,
         String email,
+        String bio,
+        String profileImageUrl,
+        String headerImageUrl,
         LocalDateTime createdAt
 ) {}

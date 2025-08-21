@@ -49,6 +49,16 @@ public class User {
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
+    @Column(name = "bio")
+    private String bio;
+
+    @Column(name = "profile_image_url")
+    private String profileImageUrl;
+
+    @Column(name = "header_image_url")
+    private String headerImageUrl;
+
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @ToString.Exclude // StackOverflowError'u önlemek için. (sonsuz döngüye girebilir.)
     @Getter(AccessLevel.NONE) // Lombok getter oluşturmasın diye. -> benim getter'ım ezilmesin diye.
