@@ -26,7 +26,7 @@ public class GlobalExceptionHandler {
     }
 
 
-    //kalan tüm hatalar da buraya düşecek.
+    //CATCH-ALL MEACHANISM
     //http status gelmeyecek, biz yazacağız: bizim düşünemediğimiz durumlarda hata çıkarsa: 500
     @ExceptionHandler(Exception.class)
     public ResponseEntity<TwitterErrorResponse> handleException(Exception exception) {
