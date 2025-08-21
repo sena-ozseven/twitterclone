@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.time.LocalDateTime;
-
+//RestControllerAdvice --> REST Controller için özel olan advice.
 @ControllerAdvice //to make it intervene when an error occurs.
 public class GlobalExceptionHandler {
 
@@ -14,7 +14,7 @@ public class GlobalExceptionHandler {
 
     //application'da yazarken bizim throw ettiğimiz hataları  handle edecek. --> yukarıda olması çalışması içim mühim.
     //bu application'ın herhangi bir yerinde hata çıkarsa buraya düşecek
-    @ExceptionHandler
+    @ExceptionHandler(TwitterException.class)
     public ResponseEntity<TwitterErrorResponse> handleException(TwitterException twitterException) {
         TwitterErrorResponse response = new TwitterErrorResponse(
                 twitterException.getMessage(),
@@ -28,7 +28,7 @@ public class GlobalExceptionHandler {
 
     //kalan tüm hatalar da buraya düşecek.
     //http status gelmeyecek, biz yazacağız: bizim düşünemediğimiz durumlarda hata çıkarsa: 500
-    @ExceptionHandler
+    @ExceptionHandler(Exception.class)
     public ResponseEntity<TwitterErrorResponse> handleException(Exception exception) {
         TwitterErrorResponse response = new TwitterErrorResponse(
                 exception.getMessage(),
