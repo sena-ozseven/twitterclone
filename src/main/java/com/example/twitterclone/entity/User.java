@@ -29,7 +29,6 @@ public class User {
     @Size(max=50)
     private String username;
 
-
     @Column(name = "email", unique = true, nullable = false)
     @NotEmpty
     @NotNull
