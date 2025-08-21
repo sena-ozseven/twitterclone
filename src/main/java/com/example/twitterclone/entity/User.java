@@ -6,38 +6,41 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Table(name = "users", schema = "public")
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter   //? alternatively -@EqualsAndHashCode(of = "id")- can be used. in that case methods should not be written.
+@Getter   // alternative: @EqualsAndHashCode(of = "id")
 @Setter
 @ToString
 public class User {
 
     @Id
-    @GeneratedValue(strategy =  GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
     @Column(name = "username", unique = true, nullable = false)
+    @NotEmpty
+    @NotNull
     @NotBlank(message = "Username cannot be blank")
     @Size(max=50)
     private String username;
 
 
     @Column(name = "email", unique = true, nullable = false)
+    @NotEmpty
+    @NotNull
     @NotBlank(message = "Email cannot be blank")
     @Size(max = 255)
     @Email(message = "Please provide a valid email address") // validation
     private String email;
 
     @Column(name="password", nullable = false)
+    @NotEmpty
+    @NotNull
     @NotBlank(message = "Password cannot be blank")
     @Size(max=255)
     @ToString.Exclude
@@ -50,23 +53,52 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Tweet> tweets = new ArrayList<>();
 
-    //List/Set yazdıgımızda add ve remove methodlarını da yazmamız gerekiyor:
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<Like> likes = new HashSet<>();
+
+
+    //Bidirectional Synchronization
+    //----------tweets
     public void addTweet(Tweet tweet) {
         if (tweet == null) {
             throw new IllegalArgumentException("Tweet cannot be null");
         }
         if(tweet.getUser().equals(this)) {
-            tweets.add(tweet);
+            this.tweets.add(tweet);
+            tweet.setUser(this); //--> bidirectional
         }
     }
 
     public void removeTweet(Tweet tweet) {
         tweets.remove(tweet);
+        tweet.setUser(null);
     }
 
     public List<Tweet> getTweets() {
         return Collections.unmodifiableList(this.tweets);
     }
+    //------------
+
+    //--------likes
+    public void addLike(Like like) {
+        if (like == null) {
+            throw new IllegalArgumentException("Like cannot be null");
+        }
+        if(like.getUser().equals(this)) {
+            this.likes.add(like);
+            like.setUser(this);
+        }
+    }
+
+    public void removeLike(Like like) {
+        likes.remove(like);
+        like.setUser(null);
+    }
+
+    public Set<Like> getLikes() {
+        return Collections.unmodifiableSet(this.likes);
+    }
+    //-----------
 
     @Override            //polymorphism
     public boolean equals(Object obj) {
