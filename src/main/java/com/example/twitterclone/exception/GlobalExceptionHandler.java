@@ -12,7 +12,7 @@ public class GlobalExceptionHandler {
 
     //method overloading
 
-    //application'da yazarken bizim throw ettiğimiz hataları  handle edecek. --> yukarıda olması çalışması içim mühim.
+    //application'da yazarken bizim throw ettiğimiz hataları  handle edecek.
     //bu application'ın herhangi bir yerinde hata çıkarsa buraya düşecek
     @ExceptionHandler(TwitterException.class)
     public ResponseEntity<TwitterErrorResponse> handleException(TwitterException twitterException) {
