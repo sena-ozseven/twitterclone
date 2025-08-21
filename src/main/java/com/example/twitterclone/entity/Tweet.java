@@ -39,9 +39,11 @@ public class Tweet {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
+    @ToString.Exclude
     private User user;
 
     @OneToMany(mappedBy = "tweet", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
     private Set<Like> likes = new HashSet<>();
 
     //-----RETWEET-----
