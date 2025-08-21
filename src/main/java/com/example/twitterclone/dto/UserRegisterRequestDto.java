@@ -12,7 +12,7 @@ import jakarta.validation.constraints.*;
 //Dışarıdan gönderdiğimiz veriler JSON (Javascript Object Notation) tipinde oluyor.
 //RequestDto --> outcoming data - accept and verify.
 
-public record UserRequestDto(
+public record UserRegisterRequestDto(
         @NotEmpty
         @NotNull
         @NotBlank(message = "Username cannot be blank")
