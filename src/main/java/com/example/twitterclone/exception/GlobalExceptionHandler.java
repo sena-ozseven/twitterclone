@@ -11,11 +11,11 @@ public class GlobalExceptionHandler {
     //application'da yazarken bizim throw ettiğimiz hataları  handle edecek. --> yukarıda olması çalışması içim mühim.
     @ExceptionHandler
     public ResponseEntity<TwitterErrorResponse> handleException(TwitterException twitterException) {
-
+        return null;
     }
 
     @ExceptionHandler
     public ResponseEntity<TwitterErrorResponse> handleException(Exception exception) {
-
+        return null;
     }
 }
