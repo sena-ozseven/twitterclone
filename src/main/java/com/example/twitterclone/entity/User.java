@@ -51,18 +51,25 @@ public class User {
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @ToString.Exclude // StackOverflowError'u önlemek için. (sonsuz döngüye girebilir.)
+    @Getter(AccessLevel.NONE) // Lombok getter oluşturmasın diye. -> benim getter'ım ezilmesin diye.
     private List<Tweet> tweets = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @ToString.Exclude // StackOverflowError'u önlemek için
+    @Getter(AccessLevel.NONE) // Lombok getter oluşturmasın, kendimiz yazdık
     private Set<Like> likes = new HashSet<>();
 
 
     //Bidirectional Synchronization
-    //----------tweets
     public void addTweet(Tweet tweet) {
         if (tweet == null) {
             throw new IllegalArgumentException("Tweet cannot be null");
         }
+
+        //this.tweets.add(tweet);
+        //tweet.setUser(this);
+
         if(tweet.getUser().equals(this)) {
             this.tweets.add(tweet);
             tweet.setUser(this); //--> bidirectional
@@ -77,13 +84,15 @@ public class User {
     public List<Tweet> getTweets() {
         return Collections.unmodifiableList(this.tweets);
     }
-    //------------
 
     //--------likes
     public void addLike(Like like) {
         if (like == null) {
             throw new IllegalArgumentException("Like cannot be null");
         }
+        //this.likes.add(like);
+        //like.setUser(this);
+
         if(like.getUser().equals(this)) {
             this.likes.add(like);
             like.setUser(this);
@@ -98,7 +107,6 @@ public class User {
     public Set<Like> getLikes() {
         return Collections.unmodifiableSet(this.likes);
     }
-    //-----------
 
     @Override            //polymorphism
     public boolean equals(Object obj) {
