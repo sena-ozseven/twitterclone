@@ -20,6 +20,8 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor //--> consturctor'ı yazıyor. required <--> final
 public class UserServiceImpl implements UserService{
 
+    //user request dto -> user -> repository -> user -> user response dto
+
     // @Autowired yazmadım cünkü RequiredArgsConstructor final alanlar için constructor olusturuyor.
     private final UserRepository userRepository;
     private final UserMapper userMapper;
@@ -73,6 +75,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    //-> atomicity,  rollback, dirty checking
     @Transactional
     public UserResponseDto updateUserProfile(Long id, UserUpdateRequestDto updateRequest, Long authenticatedUserId) {
 
@@ -117,19 +120,21 @@ public class UserServiceImpl implements UserService{
     //---------------------FIND METHODS---------------------------------
     @Override
     public UserResponseDto findUserProfileById(Long id) {
-        //user request dto -> user -> repository -> user -> user response dto
+        //OUTER WORLD --> FRONTEND - MOBILE
         User user = findUserById(id);
         return userMapper.toResponseDto(user);
     }
 
     @Override
     public User findUserById(Long id) {
+        //INTERNAL SERVICES (bundan dolayı User döndürüyorum)
         return userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
     }
 
     @Override
     public User findUserByUsername(String username) {
+        //INTERNAL SERVICES
         return userRepository.findByUsername(username)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with username: " + username));
     }
