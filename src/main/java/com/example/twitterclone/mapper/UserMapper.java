@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 public class UserMapper {
 
     //UserRegisterRequestDto'dan yeni bir user entity'si oluşturur.
-    public User toUser(UserRegisterRequestDto registerDto) {
+    public User toEntity(UserRegisterRequestDto registerDto) {
         if (registerDto == null) {
             return null;
         }
