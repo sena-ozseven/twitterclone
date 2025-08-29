@@ -22,6 +22,8 @@ public class AuthController {
 
     private final UserService userService;
 
+
+    //HTTP POST --> create
     @PostMapping("/register")
     public ResponseEntity<UserResponseDto> registerUser(@Valid @RequestBody UserRegisterRequestDto registerRequest) {
         // @Valid --> dto'daki validasyonları kontrol etmesi için

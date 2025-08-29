@@ -26,7 +26,8 @@ public class UserController {
         return ResponseEntity.ok(userProfile);
     }
 
-    @PutMapping("/{id}")
+    //HTTP PATCH --> update 
+    @PatchMapping("/{id}")
     public ResponseEntity<UserResponseDto> updateUserProfile(@PathVariable Long id,
                                                              @Valid @RequestBody UserUpdateRequestDto updateRequest) {
         // ÖNEMLİ NOT: authenticatedUserId'yi şimdilik manuel olarak giriyoruz.
