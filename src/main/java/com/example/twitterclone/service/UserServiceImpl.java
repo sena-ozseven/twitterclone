@@ -117,6 +117,8 @@ public class UserServiceImpl implements UserService{
 
         return userMapper.toResponseDto(updatedUser);
     }
+
+
     //---------------------FIND METHODS---------------------------------
     @Override
     public UserResponseDto findUserProfileById(Long id) {

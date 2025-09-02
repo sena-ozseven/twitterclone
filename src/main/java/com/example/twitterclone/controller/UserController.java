@@ -28,6 +28,8 @@ public class UserController {
         return ResponseEntity.ok(userProfile);
     }
 
+
+    //put --> dısarıdan gönderilen request dtonun içinde bulunan datanın db'de olup olmadıgını kontrol eder her seyi bastan yazar yoksa veya her seyi replace eder.
     //HTTP PATCH --> update
     @PatchMapping("/{id}")
     public ResponseEntity<UserResponseDto> updateUserProfile(@PathVariable Long id,

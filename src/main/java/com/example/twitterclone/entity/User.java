@@ -72,17 +72,8 @@ public class User {
 
     //Bidirectional Synchronization
     public void addTweet(Tweet tweet) {
-        if (tweet == null) {
-            throw new IllegalArgumentException("Tweet cannot be null");
-        }
-
-        //this.tweets.add(tweet);
-        //tweet.setUser(this);
-
-        if(tweet.getUser().equals(this)) {
-            this.tweets.add(tweet);
-            tweet.setUser(this); //--> bidirectional
-        }
+        this.tweets.add(tweet);
+        tweet.setUser(this); //--> bidirectional
     }
 
     public void removeTweet(Tweet tweet) {
@@ -96,16 +87,8 @@ public class User {
 
     //--------likes
     public void addLike(Like like) {
-        if (like == null) {
-            throw new IllegalArgumentException("Like cannot be null");
-        }
-        //this.likes.add(like);
-        //like.setUser(this);
-
-        if(like.getUser().equals(this)) {
-            this.likes.add(like);
-            like.setUser(this);
-        }
+        this.likes.add(like);
+        like.setUser(this);
     }
 
     public void removeLike(Like like) {
