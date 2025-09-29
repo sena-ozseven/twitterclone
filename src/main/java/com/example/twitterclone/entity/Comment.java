@@ -9,6 +9,8 @@ import java.time.LocalDateTime;
 
 
 @Table(name = "comments", schema = "public")
+//Like'tan farklı olarak, bir kullanıcının aynı tweete birden fazla yorum yapabilmesine izin verildiği için burada bir UniqueConstraint kullanılmadı.
+
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,8 +18,8 @@ import java.time.LocalDateTime;
 @Setter
 @ToString
 @EqualsAndHashCode(of ="id")
+//ara tablo (like ile benzer)
 public class Comment {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

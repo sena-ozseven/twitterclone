@@ -5,6 +5,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
+//REPOSITORY
+//1. abstraction (flexibility)
+//2. crud
+//3. query derivation
+//4.object-relational mapping (orm)
+
 //PK
 public interface UserRepository extends JpaRepository<User, Long> {
 
